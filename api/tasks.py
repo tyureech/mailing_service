@@ -1,11 +1,19 @@
 import random
 from celery import shared_task
+from django.db.models import Q
+from django.utils import timezone
 
-from .models import CeleryTest
+from .models import MailingModel, ClientModel, MessageModel
 
 
 @shared_task
 def save_model():
-    print(random.randint)
-    obj = CeleryTest.objects.create(name=''.join([str(random.randint(0, 9)) for _ in range(10)]))
-    return obj.name
+    mailings = MailingModel.objects.filter(
+        Q(time_start_mailing__lte=timezone.now()),
+        Q(time_finish_mailing__gte=timezone.now()),
+    )
+
+    print('all {}'.format(MailingModel.objects.all()))
+    print('filter {}'.format(mailings))
+    print(timezone.now())
+    return timezone.now()

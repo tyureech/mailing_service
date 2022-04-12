@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import MailingModel, ClientModel, MessageModel
-from .serializers import MailingSerializer, ClientSerializer, MessageSerializer
+from .models import MailingModel, ClientModel, MessageModel, FilterCodePhoneTag
+from .serializers import MailingSerializer, ClientSerializer, MessageSerializer, FilterCodePhoneTagSerializer
 
 
 class MailingAPIView(ModelViewSet):
@@ -19,3 +19,9 @@ class ClientAPIView(ModelViewSet):
 class MessageAPIView(ModelViewSet):
     queryset = MessageModel.objects.all()
     serializer_class = MessageSerializer
+
+
+class FilterCodePhoneTagAPIView(ModelViewSet):
+    queryset = FilterCodePhoneTag.objects.all()
+    serializer_class = FilterCodePhoneTagSerializer
+
