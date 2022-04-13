@@ -21,11 +21,11 @@ def sending_mailing_list():
     connect = Connections()
     for client in clients:
         for mailing in mailings:
-            response = connect.send(mailing.id, client.phone, mailing.text)
+            status = connect.send(mailing.id, client.phone, mailing.text)
+            print(status)
             MessageStatisticsModel.objects.create(
                 date_time_creation=timezone.now(),
-                status=True if response.status_code == 200 else False,
+                status=True if status == 200 else False,
                 mailing=mailing,
                 client=client,
             )
-    return response.status_code

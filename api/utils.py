@@ -19,7 +19,7 @@ class Connections:
                                      },
                                      verify=False,
                                      timeout=10)
-            return response
+            return response.status_code
         except Exception as e:
             print(e)
             return -10

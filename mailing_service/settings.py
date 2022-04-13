@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_celery_beat',
     'django_filters',
+    'drf_yasg2',
 
     'api',
 ]
