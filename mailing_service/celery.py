@@ -16,14 +16,9 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
-@shared_task()
-def add(x, y):
-    return x / y
-
-
 app.conf.beat_schedule = {
     'test': {
-        'task': 'api.tasks.save_model',
+        'task': 'api.tasks.sending_mailing_list',
         'schedule': 15.0
     }
 }

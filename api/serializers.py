@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MailingModel, ClientModel, MessageModel, FilterCodePhoneTag
+from .models import MailingModel, ClientModel, MessageStatisticsModel, FilterCodePhoneTag, CodePhoneModel, TagModel
 
 
 class MailingSerializer(serializers.ModelSerializer):
@@ -10,20 +10,29 @@ class MailingSerializer(serializers.ModelSerializer):
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    # code_phone = serializers.ReadOnlyField()
 
     class Meta:
         model = ClientModel
         fields = '__all__'
+        read_only_fields = ['code_phone']
 
 
-class MessageSerializer(serializers.ModelSerializer):
+class MessageStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MessageModel
+        model = MessageStatisticsModel
         fields = '__all__'
+        depth = 1
 
 
 class FilterCodePhoneTagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FilterCodePhoneTag
+        fields = '__all__'
+        depth = 1
+
+
+class IDFilterCodePhoneTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = FilterCodePhoneTag
         fields = '__all__'

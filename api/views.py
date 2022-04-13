@@ -1,9 +1,10 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from django_filters import rest_framework as filters
 
-from .models import MailingModel, ClientModel, MessageModel, FilterCodePhoneTag
-from .serializers import MailingSerializer, ClientSerializer, MessageSerializer, FilterCodePhoneTagSerializer
+from .models import MailingModel, ClientModel, MessageStatisticsModel, FilterCodePhoneTag
+from .serializers import MailingSerializer, ClientSerializer, MessageStatisticsSerializer, FilterCodePhoneTagSerializer, \
+    IDFilterCodePhoneTagSerializer
 
 
 class MailingAPIView(ModelViewSet):
@@ -16,12 +17,17 @@ class ClientAPIView(ModelViewSet):
     serializer_class = ClientSerializer
 
 
-class MessageAPIView(ModelViewSet):
-    queryset = MessageModel.objects.all()
-    serializer_class = MessageSerializer
+class MessageStatisticsAPIView(GenericViewSet, ListModelMixin, RetrieveModelMixin):
+    queryset = MessageStatisticsModel.objects.all()
+    serializer_class = MessageStatisticsSerializer
+    filter_backends = (filters.DjangoFilterBackend, )
+    filterset_fields = ('status', )
 
 
 class FilterCodePhoneTagAPIView(ModelViewSet):
     queryset = FilterCodePhoneTag.objects.all()
-    serializer_class = FilterCodePhoneTagSerializer
 
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return FilterCodePhoneTagSerializer
+        return IDFilterCodePhoneTagSerializer

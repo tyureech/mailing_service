@@ -41,10 +41,18 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'rest_framework',
     'django_celery_beat',
-    # 'django_celery_results',
+    'django_filters',
 
     'api',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
 
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
@@ -124,6 +132,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
+TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA3Njg3ODAsImlzcyI6ImZhYnJpcXVlIiwibmFtZSI6IkFsZWtzZXlUdXJpY2hldiJ9.GXQt5Vsgt-z2v634Q75tAxsMmmebWECUdxV0sEpf10o'
 
 
 # Static files (CSS, JavaScript, Images)
