@@ -6,7 +6,7 @@
 
 2 . Скачиваем пакеты:
 
-    pip install -r requirements.txt
+    pip install -r req.txt
 
 3 . Создаем базу данных:
 
